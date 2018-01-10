@@ -1,0 +1,21 @@
+<div id="event-details" class="pull-right">
+<style>
+	h4 { font-weight: normal; }
+	h5 { font-weight: normal; }
+	div.infoblock { display: inline-block; border-radius: 4px; padding: 10px; margin: 4px 10px; text-transform: uppercase; color: white; font-size: 20px; line-height: 24px; font-weight: bold; height: 60px; vertical-align: middle; text-align: center; }
+	div.infoblock div { position: relative; top: 50%; transform: translateY(-50%); -webkit-transform: translateY(-50%); } /* Hacky! */
+	div.event-btn { display: inline-block; margin: 10px; }
+</style>
+<h3><u>{{ event.title }}</u></h3>
+<h4>{{ event.location }}</h4>
+{% if event.start_time | date == event.end_time | date %}
+<h4><b>{{ event.start_time | date }}</b> from <b>{{ event.start_time | time }}</b> to <b>{{ event.end_time | time }}</b></h4>
+{% else %}
+<h4>From <b>{{ event.start_time | date }}</b> at <b>{{ event.start_time | time }}</b>
+to <b>{{ event.end_time | date }}</b> at <b>{{ event.end_time | time }}</b></h4>
+{% endif %}
+{% if event.performance_time %}
+<h4>Performing at <b>{{ event.performance_time | time }}</b></h4>
+{% endif %}
+<button value="Attendance" onclick="load_attendance('{{ event.id }}')">
+</div>

@@ -1,0 +1,34 @@
+<div id="event-details">
+  <div class="btn" onclick="load_event_details('{{ event.id }}');"><i class="icon-arrow-left"></i> Event</div><div class="pull-right"><button class="btn" onclick="alert('set this up!');">Excuse Unconfirmed</button></div>
+  <p style="text-align: center; font-weight: bold;">{{ event.title }} Attendance</p>
+  <p id="attendanceList"></p>
+  <form id="attendance-form" method="post">
+    <input id="should_attend" name="should_attend" type="hidden">
+    <input id="did_attend" name="did_attend" type="hidden">
+    <input id="minutes_late" name="minutes_late" type="hidden">
+    <input id="confirmed" name="confirmed" type="hidden">
+  </form>
+  <table id="table-{{ event.id }}">
+    <tbody>
+      <tr class="topRow">
+    		<td class="cellwrap">Name</td>
+    		<td class="cellwrap">Attended</td>
+    		<td class="cellwrap">Minutes Late</td>
+    		<td class="cellwrap">Should Attend</td>
+    		<td class="cellwrap">Did Attend</td>
+    		<td class="cellwrap">Confirmed</td>
+      </tr>
+      <tr><td colspan="6"><b>Bass</b></td></tr>
+      {% for pair in pairs %}
+      <tr>
+        <td class="data">{{ pair.user.name }}</td>
+        <td id="attended-{{ pair.attendance.id }}" class="data" align="center" style="color: {% if pair.attendance.did_attend %}green;">Yes{% else %}red;">No{% endif %}</td>
+        <td class="data" align="center"><input id="minutes_late-{{ pair.attendance.id }}" class="input-mini" style="width: 40px; margin-bottom: 0px" type="number" value="{{ pair.attendance.minutes_late }}" onchange="update_attendance('{{ pair.attendance.id }}')"></td>
+        <td class="data" align="center"><input id="should_attend-{{ pair.attendance.id }}" type="checkbox" onclick="update_attendance('{{ pair.attendance.id }}')" {% if pair.attendance.should_attend %}checked{% endif %}></td>
+        <td class="data" align="center"><input id="did_attend-{{ pair.attendance.id }}" type="checkbox" onclick="update_attendance('{{ pair.attendance.id }}')" {% if pair.attendance.did_attend %}checked{% endif %}></td>
+        <td class="data" align="center"><input id="confirmed-{{ pair.attendance.id }}" type="checkbox" onclick="update_attendance('{{ pair.attendance.id }}')" {% if pair.attendance.confirmed %}checked{% endif %}></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>

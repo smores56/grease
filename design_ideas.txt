@@ -1,0 +1,3 @@
+For filtering event type, add a drop-down menu in the top right to filter that way, and load all events each time.
+For each set of data (events, songs, etc.) don't need to ever reload the page (keep add, delete, view on same load with js / jquery).
+Use GaTech / Glee Club color schemes. (Make it look unique!)

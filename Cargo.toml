@@ -1,0 +1,24 @@
+[package]
+name = "grease"
+version = "0.1.0"
+authors = ["smores"]
+
+[dependencies]
+rocket = "0.3.5"
+rocket_codegen = "0.3.5"
+diesel = { version = "0.16.0", default-features = false, features = ["postgres", "chrono"] }
+diesel_derives = { version = "*", default-features = false, features = ["postgres"] }
+diesel_codegen = { version = "*", default-features = false, features = ["postgres", "dotenv"] }
+diesel_infer_schema = { version = "*", default-features = false, features = ["postgres"] }
+chrono = { version = "0.4.0", features = ["serde"] }
+open = "1.2.0"
+r2d2 = "*"
+r2d2-diesel = "*"
+toml = "0.4"
+dotenv = "0.10"
+serde = "1.0"
+serde_json = "1.0"
+serde_derive = "1.0"
+rust-crypto = "^0.2"
+lazy_static = "0.2.9"
+tera = "0.10"

@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% block scripts %}
+<script async type="text/javascript" src="/scripts/events.js"></script>
+{% endblock scripts %}
+{% block title %}Events{% endblock title %}
+{% block content %}
+  <h2>{{ event_type | title }} Events:</h2>
+  <div id="events" class="pull-left">
+    <table>
+      <tr><button onclick="new_event()">Add New Event</button></tr>
+      {% set curr_time = current_time() %}
+      {% for pair in attendance_event_pairs %}
+      <tr onclick="load_event_details({{ pair.event.id }})">
+        <td style=""><span class="label event-category-{{ pair.event.category | lower }}">{{ pair.event.category | title }}</span></td>
+        <td>{{ pair.event.title }}</td>
+        <td style="min-width: 8em">{{ pair.event.start_time | calendar_date }}</td>
+        <td>
+          {% if pair.event.end_time < curr_time %}
+          <span class="label event-over">This event is over</span>
+          {% elif pair.attendance.should_attend %}
+          <span class="label event-attending">Attending</span>
+          {% else %}
+          <span class="label event-not-attending">Not attending</span>
+          {% endif %}
+        </td>
+      {% endfor %}
+    </table>
+  </div>
+  <div id="event-details" class="pull-right">
+    <style>
+    	h4 { font-weight: normal; }
+    	h5 { font-weight: normal; }
+    	div.infoblock { display: inline-block; border-radius: 4px; padding: 10px; margin: 4px 10px; text-transform: uppercase; color: white; font-size: 20px; line-height: 24px; font-weight: bold; height: 60px; vertical-align: middle; text-align: center; }
+    	div.infoblock div { position: relative; top: 50%; transform: translateY(-50%); -webkit-transform: translateY(-50%); } /* Hacky! */
+    	div.event-btn { display: inline-block; margin: 10px; }
+    </style>
+    <h4>Please select an event from the left.</h4>
+  </div>
+  <div id="new-event" class="pull-right" hidden>
+    <h2>Add a New Event:</h2>
+    <form id="new_event_form" action="/events" method="post">
+      <p>
+        <label for="title">Title: </label>
+        <span><input id="title" type="text" name="title" placeholder="the event title"></span>
+        <span id="title-error" hidden>Title is required.</span>
+      </p>
+      <p>
+        <label for="location">Location: </label>
+        <span><input id="location" type="text" name="location" placeholder="the location of the event"></span>
+        <span id="location-error" hidden>Location is required.</span>
+      </p>
+      <p>
+        <label for="category">Enter category: </label>
+        <select name="category">
+          <option value="rehearsal">Rehearsal</option>
+          <option value="sectional">Sectional</option>
+          <option value="tutti">Tutti</option>
+          <option value="volunteer">Volunteer</option>
+          <option value="ombuds">Ombuds</option>
+          <option value="other">Other</option>
+        </select>
+      </p>
+      <p>
+        <label for="description">Optional: Enter Description: </label>
+        <input id="description" type="text" name="description" placeholder="a description of the event">
+      </p>
+      <p>
+        <span><label for="start_date">Start Date: </label>
+        <input id="start_date" type="date" name="start_date"></span>
+        <span><label for="start_time">Start Time: </label>
+        <input id="start_time" type="time" name="start_time"></span>
+        <span id="start-error" hidden>Start date and time are both required.</span>
+      </p>
+      <p>
+        <span><label for="end_date">End Date: </label>
+        <input id="end_date" type="date" name="end_date"></span>
+        <span><label for="end_time">End Time: </label>
+        <input id="end_time" type="time" name="end_time"></span>
+        <span id="end-error" hidden>End date and time are both required.</span>
+      </p>
+      <p>
+        <label for="performance_date">Optional: Performance Date: </label>
+        <input id="performance_date" type="date" name="performance_date">
+        <label for="performance_time">Optional: Performance Time: </label>
+        <input id="performance_time" type="time" name="performance_time">
+      </p>
+      <input type="submit" value="Add Event" onclick="submit_new_event()">
+    </form>
+  </div>
+{% endblock content %}

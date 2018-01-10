@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% block head %}
+    <link rel="stylesheet" href="/files/styles/main.css">
+    <link rel="stylesheet" href="/files/styles/bootstrap.css">
+    <script async type="text/javascript" src="/scripts/jquery-3.2.1.min.js"></script>
+    {% block scripts %}{% endblock scripts %}
+    <title>{% block title %}The Glee Club Mancave{% endblock title %} - Grease</title>
+    {% endblock head %}
+  </head>
+
+
+
+  <ul>
+    <li><a href="#home">Home</a></li>
+    <li><a href="#news">News</a></li>
+    <li class="dropdown">
+      <a href="javascript:void(0)" class="dropbtn">Dropdown</a>
+      <div class="dropdown-content">
+        <a href="#">Link 1</a>
+        <a href="#">Link 2</a>
+        <a href="#">Link 3</a>
+      </div>
+    </li>
+  </ul>
+
+  <div class="navbar navbar-fixed-top navbar-inverse" style="font-size: 13px">
+  	<div class="navbar-inner">
+  	<div class="container">
+  		<ul class="nav">
+  			<li><a class="brand" href="index.php">Glee Club</a></li>
+  			<li class="divider-vertical"></li>
+				<li class="dropdown active">
+		      <a href="#" class="dropdown-toggle" data-toggle="dropdown">Events <b class="caret"></b></a>
+			    <ul class="dropdown-menu">
+					<li class=""><a href="#events">All</a></li>
+          </ul>
+		    </li>
+  			<li class="dropdown">
+  				<a href="#" class="dropdown-toggle" data-toggle="dropdown">Actions <b class="caret"></b></a>
+  				<ul class="dropdown-menu">
+  					<li><a href="#feedback">Feedback</a></li>
+  					<li><a href="#suggestSong">Suggest a song</a></li>
+  					<li><a href="#roster">Members</a></li>
+
+  			<li><a href="#addAnnouncement">Make an Announcement</a></li>
+  			<li><a href="#money">Add Transactions</a></li>				</ul>
+  			</li>
+  						<li class="dropdown">
+  				<a href="#" class="dropdown-toggle" data-toggle="dropdown">Documents <b class="caret"></b></a>
+  				<ul class="dropdown-menu">
+  					<li class=""><a href="#repertoire">Repertoire</a></li>					<li><a href="#minutes">Meeting Minutes</a></li>
+  					<li class="divider"></li><li>
+  					</li><li><a href="#doc:Constitution">Constitution</a></li><li><a href="#doc:Handbook">Handbook</a></li><li><a href="#doc:Syllabus">Syllabus</a></li>				</ul>
+  			</li>
+  		</ul>
+      {% if email %}
+  		<ul class="pull-right">
+  			<li class="dropdown">
+  				<a href="" class="dropdown-toggle" data-toggle="dropdown">{{ email }}</a>
+  				<ul class="dropdown-menu">
+  					<li class=""><a href="/profile">My Profile</a></li>
+  					<li><a href="">Log Out</a></li>
+  					<li class="divider"></li><li>
+  			</li>
+			</ul>
+      {% endif %}
+  	</div>
+  	</div>
+  	</div>
+  <div id="content">{% block content %}{% endblock content %}</div>
+  <footer>
+      {% block footer %}
+      &copy; Copyright 1906 by <a href="https://music.gatech.edu/content/jerry-ulrich">The King of Glee Club</a>.
+      {% endblock footer %}
+  </footer>
+</html>

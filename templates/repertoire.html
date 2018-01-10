@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block scripts %}
+<script type="text/javascript" src="/scripts/jquery-confirm.min.js"></script>
+{% endblock scripts %}
+{% block title %}Events{% endblock title %}
+{% block content %}
+<div id="songs">
+  <table>
+    <tr><button onclick="new_song()">Create New Song</button></tr>
+    <tr><td class="repertoire_head">Current Repertoire</td></tr>
+    {% for song in current_songs %}
+    <tr onclick="load_song_details({{ song.id }})"><td id="row_{{ song.id }}" class="repertoire_row">{{ song.name }}</td></tr>
+    {% endfor %}
+    <tr><td class="repertoire_head">Other Repertoire</td></tr>
+    {% for song in other_songs %}
+    <tr onclick="load_song_details({{ song.id }})"><td id="row_{{ song.id }}" class="repertoire_row">{{ song.name }}</td></tr>
+    {% endfor %}
+  </table>
+</div>
+<div class="span8 block" id="song-details">
+  <h3>Please select a song from the left</h3>
+</div>
+<div id="new-song" hidden>
+    <span class="pull-left"><button onclick="try_to_go_back()">Back</button></span>
+    <span><h2>Add a new song:</h2></span>
+    <span class="pull-left"><button onclick="submit_new_song()">Create Song</button></span>
+    <form id="new-song-form">
+      <label for="new-song-title">Title</label><input id="new-song-title" type="text">
+      <label for="new-song-description">Optional: Description</label><input id="new-song-description" type="textarea">
+      <label for="new-song-this-semester">Add To Current Semester?</label><input id="new-song-this-semester" type="checkbox">
+      {% set keys = keys() %}
+      <label for="new-song-key">Key</label>
+      <select id="new-song-key" type="text">
+        {% for key in keys %}
+        <option value="{{ key }}">{{ key }}</option>
+        {% endfor %}
+      </select>
+      <label for="new-song-starting-pitch">Starting Pitch</label>
+      <select id="new-song-starting-pitch">
+        {% for key in keys %}
+        <option value="{{ key }}">{{ key }}</option>
+        {% endfor %}
+      </select>
+      <div id="new-song-sheet-music-files">
+        <p id="sheet-music-upload-1">
+          <label for="sheet-music-file-1">Upload Sheet Music File</label>
+          <input type="file" id="sheet-music-file-1">
+          <label for="sheet-music-name-1">Sheet Music Name</label>
+          <input type="text" id="sheet-music-name-1">
+        </p>
+        <a onclick="add_input()"> <!-- Figure out what the inputs should be -->
+        <a onclick="remove_input()"> <!-- same here -->
+      </div>
+      <div id="new-song-midi-files">
+        <p id="midi-file-upload-1">
+          <label for="midi-file-1">Upload MIDI File</label>
+          <input type="file" id="midi-file-1">
+          <label for="midi-file-name-1">MIDI File Name</label>
+          <input type="text" id="midi-file-name-1">
+        </p>
+        <a onclick="add_input()"> <!-- Figure out what the inputs should be -->
+        <a onclick="remove_input()"> <!-- same here -->
+      </div>
+      <div id="new-song-performance-links">
+        <p id="performance-link-upload-1">
+          <label for="performance-link-1">Add Link To Performance Video</label>
+          <input type="url" id="performance-link-1">
+          <label for="performance-link-name-1">Performance Link Name</label>
+          <input type="text" id="performance-link-name-1">
+        </p>
+        <a onclick="add_input()"> <!-- Figure out what the inputs should be -->
+        <a onclick="remove_input()"> <!-- same here -->
+      </div>
+      <div id="new-song-other-links">
+        <p id="other-link-upload-1">
+          <label for="other-link-1">Add Other Link</label>
+          <input type="url" id="other-link-1">
+          <label for="performance-link-name-1">Performance Link Name</label>
+          <input type="text" id="performance-link-name-1">
+        </p>
+        <a onclick="add_input()"> <!-- Figure out what the inputs should be -->
+        <a onclick="remove_input()"> <!-- same here -->
+      </div>
+    </form>
+  </div>
+{% endblock content %}

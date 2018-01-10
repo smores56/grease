@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block scripts %}
+<script async type="text/javascript" src="/scripts/login.js"></script>
+<script type="text/javascript" src="/scripts/scrypt-async.min.js"></script>
+{% endblock scripts %}
+{% block title %}Login{% endblock title %}
+{% block content %}
+  <h2>Please login to access Grease:</h2>
+  <form id="login_form" action="/login" method="post">
+      <label for="login_data">Enter your email and password: </label>
+      <input id="email" type="text" name="email" placeholder="your email">
+      <input id="password" type="password" placeholder="your password">
+      <input id="pass_hash" type="hidden" name="pass_hash">
+      <input id="login_button" type="button" value="Login" onclick="submit_login()">
+  </form>
+  {% if bad_login %}<p style="color:#FF0000">Bad email or password. Try again.</p>{% endif %}
+{% endblock content %}

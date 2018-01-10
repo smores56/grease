@@ -1,0 +1,42 @@
+<div class="span8 block" id="song-details">
+  <div class="pull-right" style="padding-left: 10px; padding-right: 10px">
+    <!-- <img id="spinner" src="/images/loading.gif" style="width: 28px; height:28px; margin-right: 10px; display:none;"> -->
+    <button class="btn" id="edit-song" onclick="load_edit_song({{ song.id }})">Edit</button>
+  </div>
+  <h2>{{ song.name }}</h2>
+  {% if song.description %}<div id="song-description"><pre>{{ song.description }}</pre></div>{% endif %}
+  <br>Key: <span id="song-key">{{ song.key }}</span>
+  <br>Starting pitch: <span id="song-starting-key">{{ song.starting_pitch }}</span>
+  <div id="sheet-music-files" data-storage="local" data-typeid="pdf" style="margin-top: 16px;">
+    <h4>Sheet Music</h4>
+    {% for file in sheets %}
+    <div id="file-{{ file.id }}" class="link_main">
+      <a href="/music/{{ file.path }}" target="_blank">{{ file.name }}</a>
+    </div>
+    {% endfor %}
+  </div>
+  <div id="midi-files" data-storage="local" data-typeid="midi" style="margin-top: 16px;">
+    <h4>MIDI's</h4>
+    {% for file in midis %}
+    <div id="file-{{ file.id }}" class="link_main">
+      <a href="/music/{{ file.path }}" target="_blank">{{ file.name }}</a>
+    </div>
+    {% endfor %}
+  </div>
+  <div id="performance-links" data-storage="remote" data-typeid="video" style="margin-top: 16px;">
+    <h4>Performances</h4>
+    {% for link in performance_links %}
+    <div id="file-{{ link.id }}" class="link_main">
+      <a href="{{ link.link }}" target="_blank" class="hoverZoomLink">{{ link.name }}</a>
+    </div>
+    {% endfor %}
+  </div>
+  <div id="other-links" data-storage="remote" data-typeid="link" style="margin-top: 16px;">
+    <h4>Other Links</h4>
+    {% for link in other_links %}
+    <div id="link-{{ link.id }}" class="link_main">
+      <a href="{{ link.link }}" target="_blank">{{ link.name }}</a>
+    </div>
+    {% endfor %}
+  </div>
+</div>
